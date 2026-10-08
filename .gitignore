@@ -1,0 +1,18 @@
+# Java
+backend/target/
+backend/.idea/
+
+# Vue
+frontend/node_modules/
+frontend/dist/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+.DS_Store
+mysql/employee_db.sql
