@@ -1,3 +1,4 @@
+
 pipeline {
     agent any
 
@@ -18,6 +19,10 @@ pipeline {
             steps {
                 sh '''
                     set -eu
+
+                    cp docker-compose.yml /workspace/employee-project/docker-compose.yml
+                    cp -a backend frontend mysql /workspace/employee-project/
+
                     cd /workspace/employee-project
                     docker compose config --quiet
                     docker compose up -d --build
@@ -28,9 +33,9 @@ pipeline {
         stage('Verify') {
             steps {
                 sh '''
-                    docker ps --filter name=employee-backend
-                    docker ps --filter name=employee-frontend
-                    docker ps --filter name=employee-mysql
+                    set -eu
+                    docker compose -f /workspace/employee-project/docker-compose.yml \
+                        --project-directory /workspace/employee-project ps
                 '''
             }
         }
