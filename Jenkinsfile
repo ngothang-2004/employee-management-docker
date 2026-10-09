@@ -40,4 +40,34 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            withCredentials([string(
+                credentialsId: 'telegram-bot-token',
+                variable: 'TG_TOKEN'
+            )]) {
+                sh '''
+                    curl -fsS --max-time 15 -X POST \
+                        "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+                        --data-urlencode "chat_id=-5505298580" \
+                        --data-urlencode "text=✅ Jenkins SUCCESS: Employee Management đã build và triển khai thành công."
+                '''
+            }
+        }
+
+        failure {
+            withCredentials([string(
+                credentialsId: 'telegram-bot-token',
+                variable: 'TG_TOKEN'
+            )]) {
+                sh '''
+                    curl -fsS --max-time 15 -X POST \
+                        "https://api.telegram.org/bot${TG_TOKEN}/sendMessage" \
+                        --data-urlencode "chat_id=-5505298580" \
+                        --data-urlencode "text=❌ Jenkins FAILURE: Pipeline Employee Management thất bại. Hãy kiểm tra Console Output trong Jenkins."
+                '''
+            }
+        }
+    }
 }
