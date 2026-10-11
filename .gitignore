@@ -16,3 +16,18 @@ frontend/dist/
 .idea/
 .DS_Store
 mysql/employee_db.sql
+# Kubernetes credentials and local deployment files
+jenkins-k8s/config
+jenkins-k8s/token
+jenkins-k8s/deployer-config
+jenkins-k8s/jenkins-rbac.yaml
+
+# Local tools and backups
+.tools/
+backup/
+
+# Kubernetes local manifests
+backend-k8s.yaml
+frontend-k8s.yaml
+frontend-ingress.yaml
+mysql-k8s.yaml
